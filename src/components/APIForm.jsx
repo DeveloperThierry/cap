@@ -9,9 +9,15 @@ const APIForm = ({ inputs, handleChange, onSubmit }) => {
     "Choose the width of your screenshot (in pixels)",
     "Choose the height of your screenshot (in pixels)",
   ];
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onSubmit(e)
+  }
   return (
     <div>
-      <h1>Select Your Image Attributes:</h1>
+      <p>Ditch F12 keyboard presses and right mouse clicks for SnapIO</p>
       <form action="" className="form-container">
         {inputs &&
           Object.entries(inputs).map(([category, value], index) => (
@@ -30,7 +36,7 @@ const APIForm = ({ inputs, handleChange, onSubmit }) => {
               <p> {inputsInfo[index]}</p>
             </li>
           ))}
-        <button className="button" onSubmit={onSubmit}>
+        <button className="button" onClick={handleSubmit}>
           Take that Pic!
         </button>
       </form>

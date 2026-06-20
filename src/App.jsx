@@ -2,11 +2,12 @@ import { useState } from "react";
 import heroImg from "./assets/hero.png";
 import "./App.css";
 import APIForm from "./components/APIForm";
-
+import Gallery from "./components/Gallery";
 function App() {
   const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
+  const [prevImages, setPrevImages] = useState([]);
   const [currentImage, setCurrentImage] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState({
     url: "",
     format: "",
@@ -28,6 +29,7 @@ function App() {
   };
 
   const submitForm = () => {
+    setLoading(true);
     let defaultValues = {
       format: "jpeg",
       no_ads: "true",
@@ -35,9 +37,10 @@ function App() {
       width: "1920",
       height: "1080",
     };
-    if (inputs.url == "" || inputs.url == " ")
+    if (inputs.url == "" || inputs.url == " ") {
       alert("You forgot to submit an url!");
-    else {
+      setLoading(false);
+    } else {
       const updatedInputs = { ...inputs };
       for (const [key, value] of Object.entries(inputs)) {
         if (value == "") {
@@ -45,17 +48,17 @@ function App() {
         }
       }
       setInputs(updatedInputs);
-      makeQuery();
+      makeQuery(updatedInputs);
     }
   };
 
-  const makeQuery = () => {
+  const makeQuery = (currentInputs) => {
     let wait_until = "network_idle";
     let response_type = "json";
     let fail_on_status = "400%2C404%2C500-511";
     let url_starter = "https://";
-    let fullURL = url_starter + inputs.url;
-    let query = `https://api.apiflash.com/v1/urltoimage?access_key=${ACCESS_KEY}&url=${fullURL}&format=${inputs.format}&width=${inputs.width}&height=${inputs.height}&no_cookie_banners=${inputs.no_cookie_banners}&no_ads=${inputs.no_ads}&wait_until=${wait_until}&response_type=${response_type}&fail_on_status=${fail_on_status}`;
+    let fullURL = url_starter + currentInputs.url;
+    let query = `https://api.apiflash.com/v1/urltoimage?access_key=${ACCESS_KEY}&url=${fullURL}&format=${currentInputs.format}&width=${currentInputs.width}&height=${currentInputs.height}&no_cookie_banners=${currentInputs.no_cookie_banners}&no_ads=${currentInputs.no_ads}&wait_until=${wait_until}&response_type=${response_type}&fail_on_status=${fail_on_status}`;
     callAPI(query).catch(console.error);
   };
 
@@ -67,13 +70,22 @@ function App() {
       alert("Oops! Something went wrong with that query, let's try again!");
     } else {
       setCurrentImage(json.url);
+      setPrevImages((images) => [...images, json.url]);
       reset();
     }
+
+    setLoading(false);
   };
+
 
   return (
     <div className="whole-page">
-      <h1>Build Your Own Screenshot! 📸</h1>
+      {loading && (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    )}
+      <h1>SnapIO 📸</h1>
 
       <APIForm
         inputs={inputs}
@@ -93,11 +105,11 @@ function App() {
           alt="Screenshot returned"
         />
       ) : (
-        <div><img src="https://placehold.co/600x400/EEE/31343C" alt="placeholder image" className="placeholder"/> </div>
+        <div></div>
       )}
       <div className="container">
-        <h3> Current Query Status: </h3>
-        <p>
+        <Gallery images={prevImages} />
+        {/* <p>
           https://api.apiflash.com/v1/urltoimage?access_key=ACCESS_KEY
           <br></br>
           &url={inputs.url} <br></br>
@@ -110,7 +122,7 @@ function App() {
           <br></br>
           &no_ads={inputs.no_ads}
           <br></br>
-        </p>
+        </p> */}
       </div>
 
       <br></br>

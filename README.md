@@ -1,16 +1,26 @@
-# React + Vite
+![image](/public/demo.png)
+# Automated Web Capture Interface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The application demonstrates the practical implementation of Application Programming Interfaces (APIs) to bridge the gap between user needs and external data services.
 
-Currently, two official plugins are available:
+## Business Problem
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+In modern web development, capturing and managing visual data from across the web is a complex task. Businesses often require high-quality screenshots of various web pages for documentation, marketing audits, or automated monitoring. Manually capturing these images is inefficient and lacks the precision required for professional use.
 
-## React Compiler
+## Solution
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This application provides a seamless, user-friendly interface that allows users to generate customized screenshots of any website on demand. By integrating with the APIFlash API, the project automates the process of web page rendering and image capture.
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+*   **On-Demand Screenshot Generation:** Users can input a URL to receive an instant visual capture of the target site.
+*   **Customizable Capture Parameters:** To meet diverse business requirements, the application allows users to define specific parameters for each capture, including:
+    *   **File Type:** Selection of optimal image formats (e.g., JPEG, PNG).
+    *   **Image Dimensions:** Customizing size to fit specific layouts or device mockups.
+    *   **Ad-Filtering:** A professional "no-ads" toggle to ensure clean, distraction-free captures for presentations or audits.
+*   **Dynamic API Integration:** Leverages real-world data protocols to ensure consistently formatted responses and reliable performance.
+
+## Technical Implementation
+
+*   **Core Integration:** APIFlash API for headless browser screenshot capabilities.
+*   **Focus Areas:** The development process involved deep-diving into API documentation to understand and implement advanced query parameters and data handling.

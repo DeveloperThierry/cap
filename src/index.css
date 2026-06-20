@@ -1,22 +1,26 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --text: #1d1d1f;            /* Apple primary dark text */
+  --text-h: #000000;          /* Apple heading pure black */
+  --bg: #f5f5f7;              /* Apple clean light gray page background */
+  --border: #d2d2d7;          /* Apple subtle hardware border */
+  --code-bg: #e8e8ed;         /* Apple secondary fill */
+  --accent: #0071e3;          /* Apple signature system blue */
+  --accent-bg: rgba(0, 113, 227, 0.1);
+  --accent-border: rgba(0, 113, 227, 0.4);
+  --social-bg: rgba(210, 210, 215, 0.3);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Font stack update to prioritize Apple's San Francisco system fonts */
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: SFMono-Regular, ui-monospace, Consolas, monospace;
 
+  /* Swapped out Windows background for a neutral Apple aesthetic */
+  background-image: none; 
+  background-size: initial;
+  background-blend-mode: normal;
   font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  letter-spacing: -0.022em; /* Apple's tight tracking for digital displays */
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
@@ -32,17 +36,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    --text: #f5f5f7;          /* Apple light gray text */
+    --text-h: #ffffff;        /* Apple pure white header */
+    --bg: #000000;            /* Apple Pro true black background */
+    --border: #424245;        /* Apple dark divider color */
+    --code-bg: #1d1d1f;       /* Apple elevated dark surface */
+    --accent: #2997ff;        /* Apple vibrant dark-mode system blue */
+    --accent-bg: rgba(41, 151, 255, 0.15);
+    --accent-border: rgba(41, 151, 255, 0.4);
+    --social-bg: rgba(66, 66, 69, 0.4);
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.2);
   }
 
   #social .button-icon {
@@ -108,4 +111,34 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%
+}
+.spinner {
+  background-color: transparent;
+  z-index: 100;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  /* Clean monochromatic tracking track with the system blue indicator */
+  border: 4px solid var(--border);
+  border-top: 4px solid var(--accent);
+
+  animation: spin 1s linear infinite;
+}
+
+/* The spinning logic */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
